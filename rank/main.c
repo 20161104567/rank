@@ -10,29 +10,44 @@
 
 int main()
 {
+    FILE *fr;
+    FILE *fw;
     int i,j,a;
     int f[10];
-    printf("输入要排序的十个数字:\n");
-    for(i=0;i<10;i++)
+    fr=fopen("//Users//a20161104567//Desktop//rank//input.txt","r+");
+    fw=fopen("//Users//a20161104567//Desktop//rank//output.txt","w+");
+    if(fr==NULL)
     {
-        scanf("%d",&f[i]);
+        printf("打开文件错误，您打开的文件可能不存在\n");
     }
-    for(i=0;i<9;i++)
+    else
     {
-        for(j=i+1;j<10;j++)
+        for(i=0;i<10;i++)
         {
-            if(f[i]>f[j])
+            fscanf(fr,"%d",&f[i]);
+        }
+        for(i=0;i<9;i++)
+        {
+            for(j=i+1;j<10;j++)
             {
-                a=f[i];
-                f[i]=f[j];
-                f[j]=a;
+                if(f[i]>f[j])
+                {
+                    a=f[i];
+                    f[i]=f[j];
+                    f[j]=a;
+                }
             }
         }
-    }
-    printf("排序为：");
-    for(i=0;i<10;i++)
-    {
-        printf("%d ",f[i]);
+        printf("排序为：");
+        fprintf(fw,"排序为：");
+        for(i=0;i<10;i++)
+        {
+            printf("%d ",f[i]);
+            fprintf(fw,"%d ",f[i]);
+        }
+        printf("\n");
+        fclose(fr);
+        fclose(fw);
     }
     return 0;
 }
